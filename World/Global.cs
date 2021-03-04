@@ -4,6 +4,16 @@ using Microsoft.Xna.Framework;
 
 namespace Fractured.World
 {
+    /*WARNING: This file contains data that may be considered spoilers including:
+     * 
+     * Character Gift Preferences
+     * Names of locations not yet visitable in available chapters
+     * Description of certain gifts and story markers may reference story events
+     * 
+     * 
+     * Proceed at your own risk*/
+
+
     public class Global
     {
         public static readonly List<Character> Characters = new List<Character>();
@@ -41,41 +51,41 @@ namespace Fractured.World
         #endregion
 
         #region Gift ID
-        public const int Gift_ID_Chapter0 = 1;
-        public const int Gift_ID_Chapter1 = 2;
-        public const int Gift_ID_Chapter2 = 3;
-        public const int Gift_ID_Chapter3 = 4;
-        public const int Gift_ID_Chapter4 = 5;
-        public const int Gift_ID_Chapter5 = 6;
-        public const int Gift_ID_Chapter6 = 7;
-        public const int Gift_ID_Chapter7 = 8;
-        public const int Gift_ID_UnderDaichi = 9;
-        public const int Gift_ID_UnderAyumu = 10;
-        public const int Gift_ID_UnderYori = 11;
-        public const int Gift_ID_UnderAkihito = 12;
-        public const int Gift_ID_UnderTomomi = 13;
-        public const int Gift_ID_UnderKatsuo = 14;
-        public const int Gift_ID_UnderKeshi = 15;
-        public const int Gift_ID_UnderMayu = 16;
-        public const int Gift_ID_UnderKaren = 17;
-        public const int Gift_ID_UnderScarlet = 18;
-        public const int Gift_ID_UnderMichiko = 19;
-        public const int Gift_ID_UnderMina = 20;
-        public const int Gift_ID_UnderHoshi = 21;
-        public const int Gift_ID_UnderAiri = 22;
-        public const int Gift_ID_UnderShun = 23;
-        public const int Gift_ID_UnderRin = 24;
-        public const int Gift_ID_BottleWater = 25;
-        public const int Gift_ID_SurvivalGuide = 26;
-        public const int Gift_ID_SleepingMat = 27;
-        public const int Gift_ID_CanMeal = 28;
-        public const int Gift_ID_RosePerfume = 29;
-        public const int Gift_ID_RoyalTea = 30;
-        public const int Gift_ID_NovelK = 31;
-        public const int Gift_ID_Swop = 32;
-        public const int Gift_ID_SchoolRing = 33;
-        public const int Gift_ID_ManPromise = 34;
-        public const int Gift_ID_MuiscalCuff = 35;
+        public const int Gift_ID_BottleWater = 1;
+        public const int Gift_ID_SurvivalGuide = 2;
+        public const int Gift_ID_SleepingMat = 3;
+        public const int Gift_ID_CanMeal = 4;
+        public const int Gift_ID_RosePerfume = 5;
+        public const int Gift_ID_RoyalTea = 6;
+        public const int Gift_ID_NovelK = 7;
+        public const int Gift_ID_Swop = 8;
+        public const int Gift_ID_SchoolRing = 9;
+        public const int Gift_ID_ManPromise = 10;
+        public const int Gift_ID_MuiscalCuff = 11;
+        public const int Gift_ID_UnderDaichi = 76;
+        public const int Gift_ID_UnderAyumu = 77;
+        public const int Gift_ID_UnderYori = 78;
+        public const int Gift_ID_UnderAkihito = 79;
+        public const int Gift_ID_UnderTomomi = 80;
+        public const int Gift_ID_UnderKatsuo = 81;
+        public const int Gift_ID_UnderKeshi = 82;
+        public const int Gift_ID_UnderMayu = 83;
+        public const int Gift_ID_UnderKaren = 84;
+        public const int Gift_ID_UnderScarlet = 85;
+        public const int Gift_ID_UnderMichiko = 86;
+        public const int Gift_ID_UnderMina = 87;
+        public const int Gift_ID_UnderHoshi = 88;
+        public const int Gift_ID_UnderAiri = 89;
+        public const int Gift_ID_UnderShun = 90;
+        public const int Gift_ID_UnderRin = 91;
+        public const int Gift_ID_Chapter0 = 92;
+        public const int Gift_ID_Chapter1 = 93;
+        public const int Gift_ID_Chapter2 = 94;
+        public const int Gift_ID_Chapter3 = 95;
+        public const int Gift_ID_Chapter4 = 96;
+        public const int Gift_ID_Chapter5 = 97;
+        public const int Gift_ID_Chapter6 = 98;
+        public const int Gift_ID_Chapter7 = 99;
         #endregion
 
         #region Location ID
@@ -93,7 +103,7 @@ namespace Fractured.World
         public const int Loc_ID_Health = 11;
         public const int Loc_ID_Store = 12;
         public const int Loc_ID_Junk = 13;
-        public const int Loc_ID_Trial1 = 14;
+        public const int Loc_ID_Trial = 14;
         public const int Loc_ID_Lake = 15;
         public const int Loc_ID_Hike1 = 16;
         #endregion
@@ -140,34 +150,41 @@ namespace Fractured.World
 
         private static void PopulateGifts()
         {
-            Gifts.Add(new Gift(Gift_ID_Chapter0, 0, "Bomb Fragment", false, null, null, null, null, "Proof that you've cleared the Prologue. A piece of the bomb that started it all."));
-            Gifts.Add(new Gift(Gift_ID_UnderDaichi, 0, "Daichi's Undergarments", false, null, null, null, null, ""));
-            Gifts.Add(new Gift(Gift_ID_UnderAyumu, 0, "Ayumu's Undergarments", false, null, null, null, null, "Ayumu's favorite boxers. Loose fitting and breathable for maximum comfort, even for an athlete. He even signed them for you."));
-            Gifts.Add(new Gift(Gift_ID_UnderYori, 0, "Yori's Undergarments", false, null, null, null, null, "Yori's favorite briefs. They're tight fitting so bugs don't crawl into them."));
-            Gifts.Add(new Gift(Gift_ID_UnderAkihito, 0, "Akihito's Undergarments", false, null, null, null, null, "Akihito's favorite briefs. The pattern helps hide stains."));
-            Gifts.Add(new Gift(Gift_ID_UnderTomomi, 0, "Tomomi's Undergarments", false, null, null, null, null, "Tomomi's handmade boxers. All his underwear is custom made by himself. He apparently made this pair specifically for you."));
-            Gifts.Add(new Gift(Gift_ID_UnderKatsuo, 0, "Katsuo's Undergarments", false, null, null, null, null, "Katsuo's favorite boxers. The manliest type of underwear. Only for manly men."));
-            Gifts.Add(new Gift(Gift_ID_UnderKeshi, 0, "Takeshi's Undergarments", false, null, null, null, null, "Keshi's only pair of worn out boxers. You gave him a fresh pair in exchange."));
-            Gifts.Add(new Gift(Gift_ID_UnderMayu, 0, "Mayu's Undergarments", false, null, null, null, null, "Mayu's favorite panties. At first glance they look to be made of very expensive material, however further inspection shows it's cheap synthetic."));
-            Gifts.Add(new Gift(Gift_ID_UnderKaren, 0, "Karen's Undergarments", false, null, null, null, null, "Karen's favorite cutesy panties. Despite the cute cat design on them, they're actually very versatile and durable."));
-            Gifts.Add(new Gift(Gift_ID_UnderScarlet, 0, "Hotaru's Undergarments", false, new Character[] { GetCharFromID(Char_ID_Scarlet) }, null, null, null, "Scarlet's panties. Apparently she loses her underwear very often, so she buys plain panties in bulk. She would probably appreciate it if they're returned."));
-            Gifts.Add(new Gift(Gift_ID_UnderMichiko, 0, "Michiko's Undergarments", false, null, null, null, null, "Michiko's favorite fashionable panties. She bought these while shopping with her best friend. Whenever she's lonely, she wears them as a reminder of their time together."));
-            Gifts.Add(new Gift(Gift_ID_UnderMina, 0, "Kei's Undergarments", false, null, null, null, null, "Mina's favorite bearskin underwear. She hand crafted them from the skin of a bear she had killed. They aren't all that comfortable."));
-            Gifts.Add(new Gift(Gift_ID_UnderHoshi, 0, "Hoshi's Undergarments", false, null, null, null, null, "Hoshi's favorite panties. The star pattern on them show the future for whoever is lucky enough to see them."));
-            Gifts.Add(new Gift(Gift_ID_UnderAiri, 0, "Airi's Undergarments", false, null, null, null, null, "Airi's favorite panties. Although they're not the normal hacker attire, they are very comfortable to wear. This is the only type she wears."));
-            Gifts.Add(new Gift(Gift_ID_UnderShun, 0, "Shun's Undergarments", false, null, null, null, null, "Shun's favorite panties."));
-            Gifts.Add(new Gift(Gift_ID_UnderRin, 0, "Rin's Undergarments", false, null, null, null, null, "Rin's favorite pair of underwear. The musical pattern on them don't actually mean anything, and would sound terrible if played."));
-            Gifts.Add(new Gift(Gift_ID_BottleWater, 1, "Bottled Rain Water", true, new Character[] { GetCharFromID(Char_ID_Daichi), GetCharFromID(Char_ID_Mayu) }, new Character[] { GetCharFromID(Char_ID_Karen), GetCharFromID(Char_ID_Yori), GetCharFromID(Char_ID_Hoshi) }, new Character[] { GetCharFromID(Char_ID_Keshi) }, null, "Rain water that has been collected and purified for drinking. It costs 5 times as much as normal bottled water, however the taste is indestinguishable."));
-            Gifts.Add(new Gift(Gift_ID_SurvivalGuide, 0, "Survival Guide", true, new Character[] { GetCharFromID(Char_ID_Daichi) }, new Character[] { GetCharFromID(Char_ID_Shun) }, null, new Character[] { GetCharFromID(Char_ID_Keshi) }, "Everything you need to know about surviving in the wild, from how to build a fire, to how to hunt for food. The favorite of a certain soldier."));
-            Gifts.Add(new Gift(Gift_ID_SleepingMat, 0, "Portable Sleeping Mat", true, new Character[] { GetCharFromID(Char_ID_Daichi) }, new Character[] { GetCharFromID(Char_ID_Scarlet) }, new Character[] { GetCharFromID(Char_ID_Mayu) }, null, "A cheap sleeping mat that can be rolled up and brought with you. Perfect for when you don't have time to find a bed to sleep on."));
-            Gifts.Add(new Gift(Gift_ID_CanMeal, 3, "Meal in a Can", true, new Character[] { GetCharFromID(Char_ID_Daichi) }, new Character[] { GetCharFromID(Char_ID_Mina), GetCharFromID(Char_ID_Keshi) }, null, null, "A small meal inside a metal can that can be warmed up directly on a fire or stove. It is very nutritious, however it doesn't taste good."));
-            Gifts.Add(new Gift(Gift_ID_RosePerfume, 0, "Rose Perfume", true, new Character[] { GetCharFromID(Char_ID_Mayu), GetCharFromID(Char_ID_Karen), GetCharFromID(Char_ID_Michiko), GetCharFromID(Char_ID_Hoshi) }, new Character[] { GetCharFromID(Char_ID_Daichi), GetCharFromID(Char_ID_Yori), GetCharFromID(Char_ID_Shun) }, new Character[] { GetCharFromID(Char_ID_Akihito), GetCharFromID(Char_ID_Airi) }, new Character[] { GetCharFromID(Char_ID_Katsuo) }, "A perfume made from rose petals. It doesn't have a very strong scent in order to simulate the scent of nature coming in from a second story window."));
-            Gifts.Add(new Gift(Gift_ID_RoyalTea, 2, "Royal Milk Tea", true, new Character[] { GetCharFromID(Char_ID_Karen) }, new Character[] { GetCharFromID(Char_ID_Michiko), GetCharFromID(Char_ID_Akihito), GetCharFromID(Char_ID_Tomomi) }, null, new Character[] { GetCharFromID(Char_ID_Mayu) }, "Tea with milk in it. The milk is blended into the tea during the brewing process to perfect the flavor. Drinking it is said to help those who need to stay calm during a gamble"));
-            Gifts.Add(new Gift(Gift_ID_NovelK, 0, "Mystery Novel K", true, new Character[] { GetCharFromID(Char_ID_Michiko) }, new Character[] { GetCharFromID(Char_ID_Karen), GetCharFromID(Char_ID_Akihito), GetCharFromID(Char_ID_Airi) }, new Character[] { GetCharFromID(Char_ID_Hoshi) }, new Character[] { GetCharFromID(Char_ID_Keshi) }, "A novel about an Ultimate Detective and her older sister solving a murder at an observatory. The first book in a series that you should buy all of"));
-            Gifts.Add(new Gift(Gift_ID_Swop, 0, "The Swop", true, new Character[] { GetCharFromID(Char_ID_Airi) }, new Character[] { GetCharFromID(Char_ID_Karen), GetCharFromID(Char_ID_Ayumu), GetCharFromID(Char_ID_Scarlet), GetCharFromID(Char_ID_Akihito) }, new Character[] { GetCharFromID(Char_ID_Daichi), GetCharFromID(Char_ID_Keshi) }, null, "A video game console that can be played on a television or on the go. It is rumored you can play every game ever made on it."));
-            Gifts.Add(new Gift(Gift_ID_SchoolRing, 0, "Rusted School Ring", true, null, new Character[] { GetCharFromID(Char_ID_Daichi), GetCharFromID(Char_ID_Mayu), GetCharFromID(Char_ID_Karen), GetCharFromID(Char_ID_Ayumu), GetCharFromID(Char_ID_Yori), GetCharFromID(Char_ID_Scarlet), GetCharFromID(Char_ID_Michiko), GetCharFromID(Char_ID_Akihito), GetCharFromID(Char_ID_Tomomi), GetCharFromID(Char_ID_Mina), GetCharFromID(Char_ID_Hoshi), GetCharFromID(Char_ID_Katsuo), GetCharFromID(Char_ID_Airi), GetCharFromID(Char_ID_Shun), GetCharFromID(Char_ID_Keshi), GetCharFromID(Char_ID_Noboku) }, null, null, "An old ring that you can barely make out a school crest on. You can feel those who wore it had a strong bond of friendship between them."));
-            Gifts.Add(new Gift(Gift_ID_ManPromise, 0, "A Man's Promise", true, null, null, null, null, "A note promising to fulfill a man's fantasy. Something interesting may happen if I keep it with me"));
-            Gifts.Add(new Gift(Gift_ID_MuiscalCuff, 0, "Musical Cufflink", false, null, null, null, null, "A cufflink in the shape of a musical note. A gift from Shun that she found after the explosion. Although I've never seen it before, it has my initials engraved in the back."));
+            Gift.GiftReaction love = Gift.GiftReaction.Love;
+            Gift.GiftReaction like = Gift.GiftReaction.Like;
+            Gift.GiftReaction dislike = Gift.GiftReaction.Dislike;
+            Gift.GiftReaction hate = Gift.GiftReaction.Hate;
+
+            Gifts.Add(new Gift(Gift_ID_BottleWater, "Bottled Rain Water", true, "Rain water that has been collected and purified for drinking. It costs 5 times as much as normal bottled water, however the taste is indestinguishable.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Daichi, love }, { Char_ID_Mayu, love }, { Char_ID_Karen, like }, { Char_ID_Yori, like }, { Char_ID_Hoshi, like }, { Char_ID_Keshi, dislike } }));
+            Gifts.Add(new Gift(Gift_ID_SurvivalGuide, "Survival Guide", true, "Everything you need to know about surviving in the wild, from how to build a fire, to how to hunt for food. The favorite of a certain soldier.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Daichi, love }, { Char_ID_Shun, like }, { Char_ID_Keshi, hate } }));
+            Gifts.Add(new Gift(Gift_ID_SleepingMat, "Portable Sleeping Mat", true, "A cheap sleeping mat that can be rolled up and brought with you. Perfect for when you don't have time to find a bed to sleep on.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Daichi, love }, { Char_ID_Scarlet, like }, { Char_ID_Mayu, dislike } }));
+            Gifts.Add(new Gift(Gift_ID_CanMeal, "Meal in a Can", true, "A small meal inside a metal can that can be warmed up directly on a fire or stove. It is very nutritious, however it doesn't taste good.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Daichi, love }, { Char_ID_Mina, like }, { Char_ID_Keshi, like } }));
+            Gifts.Add(new Gift(Gift_ID_RosePerfume, "Rose Perfume", true, "A perfume made from rose petals. It doesn't have a very strong scent in order to simulate the scent of nature coming in from a second story window.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Mayu, love }, { Char_ID_Karen, love }, { Char_ID_Michiko, love }, { Char_ID_Hoshi, love }, { Char_ID_Daichi, like }, { Char_ID_Yori, like }, { Char_ID_Shun, like }, { Char_ID_Akihito, dislike }, { Char_ID_Airi, dislike }, { Char_ID_Katsuo, hate } }));
+            Gifts.Add(new Gift(Gift_ID_RoyalTea, "Royal Milk Tea", true, "Tea with milk in it. The milk is blended into the tea during the brewing process to perfect the flavor. Drinking it is said to help those who need to stay calm during a gamble", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Karen, love }, { Char_ID_Michiko, like }, { Char_ID_Akihito, like }, { Char_ID_Tomomi, like }, { Char_ID_Mayu, hate } }));
+            Gifts.Add(new Gift(Gift_ID_NovelK, "Mystery Novel K", true, "A novel about an Ultimate Detective and her older sister solving a murder at an observatory. The first book in a series that you should buy all of", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Michiko, love }, { Char_ID_Karen, like }, { Char_ID_Akihito, like }, { Char_ID_Airi, like }, { Char_ID_Hoshi, dislike }, { Char_ID_Keshi, hate } }));
+            Gifts.Add(new Gift(Gift_ID_Swop, "The Swop", true, "A video game console that can be played on a television or on the go. It is rumored you can play every game ever made on it.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Airi, love }, { Char_ID_Karen, like }, { Char_ID_Ayumu, like }, { Char_ID_Scarlet, like }, { Char_ID_Akihito, like }, { Char_ID_Daichi, dislike }, { Char_ID_Keshi, dislike } }));
+            Gifts.Add(new Gift(Gift_ID_SchoolRing, "Rusted School Ring", true, "An old ring that you can barely make out a school crest on. You can feel those who wore it had a strong bond of friendship between them.", like));
+
+            Gifts.Add(new Gift(Gift_ID_ManPromise, "A Man's Promise", true, "A note promising to fulfill a man's fantasy. Something interesting may happen if I keep it with me"));
+            Gifts.Add(new Gift(Gift_ID_MuiscalCuff, "Musical Cufflink", false, "A cufflink in the shape of a musical note. A gift from Shun that she found after the explosion. Although I've never seen it before, it has my initials engraved in the back."));
+
+            Gifts.Add(new Gift(Gift_ID_UnderDaichi, "Daichi's Undergarments", false, ""));
+            Gifts.Add(new Gift(Gift_ID_UnderAyumu, "Ayumu's Undergarments", false, "Ayumu's favorite boxers. Loose fitting and breathable for maximum comfort, even for an athlete. He even signed them for you."));
+            Gifts.Add(new Gift(Gift_ID_UnderYori, "Yori's Undergarments", false, "Yori's favorite briefs. They're tight fitting so bugs don't crawl into them."));
+            Gifts.Add(new Gift(Gift_ID_UnderAkihito, "Akihito's Undergarments", false, "Akihito's favorite briefs. The pattern helps hide stains."));
+            Gifts.Add(new Gift(Gift_ID_UnderTomomi, "Tomomi's Undergarments", false, "Tomomi's handmade boxers. All his underwear is custom made by himself. He apparently made this pair specifically for you."));
+            Gifts.Add(new Gift(Gift_ID_UnderKatsuo, "Katsuo's Undergarments", false, "Katsuo's favorite boxers. The manliest type of underwear. Only for manly men."));
+            Gifts.Add(new Gift(Gift_ID_UnderKeshi, "Takeshi's Undergarments", false, "Keshi's only pair of worn out boxers. You gave him a fresh pair in exchange."));
+            Gifts.Add(new Gift(Gift_ID_UnderMayu, "Mayu's Undergarments", false, "Mayu's favorite panties. At first glance they look to be made of very expensive material, however further inspection shows it's cheap synthetic."));
+            Gifts.Add(new Gift(Gift_ID_UnderKaren, "Karen's Undergarments", false, "Karen's favorite cutesy panties. Despite the cute cat design on them, they're actually very versatile and durable."));
+            Gifts.Add(new Gift(Gift_ID_UnderScarlet, "Hotaru's Undergarments", false, "Scarlet's panties. Apparently she loses her underwear very often, so she buys plain panties in bulk. She would probably appreciate it if they're returned.", new Dictionary<int, Gift.GiftReaction>() { { Char_ID_Scarlet, Gift.GiftReaction.Love } }));
+            Gifts.Add(new Gift(Gift_ID_UnderMichiko, "Michiko's Undergarments", false, "Michiko's favorite fashionable panties. She bought these while shopping with her best friend. Whenever she's lonely, she wears them as a reminder of their time together."));
+            Gifts.Add(new Gift(Gift_ID_UnderMina, "Kei's Undergarments", false, "Mina's favorite bearskin underwear. She hand crafted them from the skin of a bear she had killed. They aren't all that comfortable."));
+            Gifts.Add(new Gift(Gift_ID_UnderHoshi, "Hoshi's Undergarments", false, "Hoshi's favorite panties. The star pattern on them show the future for whoever is lucky enough to see them."));
+            Gifts.Add(new Gift(Gift_ID_UnderAiri, "Airi's Undergarments", false, "Airi's favorite panties. Although they're not the normal hacker attire, they are very comfortable to wear. This is the only type she wears."));
+            Gifts.Add(new Gift(Gift_ID_UnderShun, "Shun's Undergarments", false, "Shun's favorite panties."));
+            Gifts.Add(new Gift(Gift_ID_UnderRin, "Rin's Undergarments", false, "Rin's favorite pair of underwear. The musical pattern on them don't actually mean anything, and would sound terrible if played."));
+            Gifts.Add(new Gift(Gift_ID_Chapter0, "Bomb Fragment", false, "Proof that you've cleared the Prologue. A piece of the bomb that started it all."));
         }
 
         private static void PopulateLoc()
@@ -186,7 +203,7 @@ namespace Fractured.World
             Locations.Add(new Location(Loc_ID_Health, "Health", "Health Office", 1, Location.LocationType.Static_Room));
             Locations.Add(new Location(Loc_ID_Store, "Store", "School Store", 1, Location.LocationType.Static_Room));
             Locations.Add(new Location(Loc_ID_Junk, "Junk", "Junkyard", 1, Location.LocationType.Static_Room));
-            Locations.Add(new Location(Loc_ID_Trial1, "Trial1", "", 1, Location.LocationType.Trial_Room));
+            Locations.Add(new Location(Loc_ID_Trial, "Trial", "", 1, Location.LocationType.Trial_Room));
             Locations.Add(new Location(Loc_ID_Lake, "Lake", "Lake Despair", 9, Location.LocationType.Moveable_Room));
             Locations.Add(new Location(Loc_ID_Hike1, "Hike1", "Lower Trail", 9, Location.LocationType.Moveable_Room));
         }
