@@ -98,10 +98,5 @@ namespace Fractured
         {
             heldKeys = Keyboard.GetState().GetPressedKeys();
         }
-
-        public Rectangle RectangleFromCharacterSpriteID(int index)
-        {
-            return new Rectangle(index % 5 * 1000 + (index % 5 + 1), (int)MathF.Floor(index / 5) * 2500 + ((int)MathF.Floor(index / 5) + 1), 1000, 2500);
-        }
     }
 }
