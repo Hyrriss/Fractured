@@ -48,6 +48,7 @@ namespace Fractured.World
             name = giftName;
             isRollable = canBeBought;
             descript = description;
+            characterReactions = new Dictionary<int, GiftReaction>();
             for (int i = 2; i <= 18; i++) { characterReactions.Add(i, universalReaction); }
             giftable = true;
         }
