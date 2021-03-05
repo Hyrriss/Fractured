@@ -22,6 +22,10 @@ namespace Fractured.UI
         public bool IsMenuActive { get { return isMenuActive; } }
         private bool isMenuActive;
 
+        /// <summary>
+        /// Returns the current active menu type
+        /// </summary>
+        public MenuType CurrentType { get { return currentMenu; } }
         private MenuType currentMenu = MenuType.MainMenu;
         private MenuType previousMenu;
         private Texture2D activeSpriteSheet;
@@ -31,6 +35,8 @@ namespace Fractured.UI
         private Cursor activeCursor;
         private int selectedButton = 0;
         private SoundEffect selection;
+        private float spriteOpacity;
+        private float spriteFade;
         #endregion
 
         public Menu(Game1 game1, ContentManager content)
@@ -45,6 +51,8 @@ namespace Fractured.UI
         /// <param name="menuType"></param>
         public void SetMenuActive(MenuType menuType)
         {
+            spriteOpacity = 0;
+            spriteFade = 1f / 10f;
             isMenuActive = true;
             previousMenu = currentMenu;
             currentMenu = menuType;
@@ -102,10 +110,13 @@ namespace Fractured.UI
         {
             if (isMenuActive)
             {
-                foreach (Sprite s in sprites) { _spriteBatch.Draw(s.BaseSpriteSheet, s.ScreenPosition, s.SpriteLocation, Color.White); }
-                if (activeCursor != null && !buttons[selectedButton].DoesButtonIgnoreCursor) { _spriteBatch.Draw(activeCursor.cursorSprite.BaseSpriteSheet, activeCursor.cursorSprite.ScreenPosition, activeCursor.cursorSprite.SpriteLocation, Color.White); }
-                if (buttonLabels != null) { foreach (Sprite s in buttonLabels) { _spriteBatch.Draw(s.BaseSpriteSheet, s.ScreenPosition, s.SpriteLocation, Color.White); } }
-                if (buttons != null) { foreach (Button b in buttons) { b.Draw(_spriteBatch, selectedButton == b.ID); } }
+                if ((spriteOpacity < 1 && spriteFade > 0) || (spriteOpacity > 0 && spriteFade < 1)) spriteOpacity += spriteFade;
+                else spriteFade = 0;
+
+                foreach (Sprite s in sprites) { _spriteBatch.Draw(s.BaseSpriteSheet, s.ScreenPosition, s.SpriteLocation, Color.White * spriteOpacity); }
+                if (activeCursor != null && !buttons[selectedButton].DoesButtonIgnoreCursor) { _spriteBatch.Draw(activeCursor.cursorSprite.BaseSpriteSheet, activeCursor.cursorSprite.ScreenPosition, activeCursor.cursorSprite.SpriteLocation, Color.White * spriteOpacity); }
+                if (buttonLabels != null) { foreach (Sprite s in buttonLabels) { _spriteBatch.Draw(s.BaseSpriteSheet, s.ScreenPosition, s.SpriteLocation, Color.White * spriteOpacity); } }
+                if (buttons != null) { foreach (Button b in buttons) { b.Draw(_spriteBatch, selectedButton == b.ID, spriteOpacity); } }
             }
         }
 
@@ -145,7 +156,9 @@ namespace Fractured.UI
                     switch (selectedButton)
                     {
                         case 0:
-                            MainMenu.NewGame();
+                            Game1.ActivateInterface(World.Global.GetMarkerFromID(0));
+                            Unload();
+                            //MainMenu.NewGame();
                             break;
                         case 1:
                             LoadGame();
@@ -161,13 +174,18 @@ namespace Fractured.UI
                     {
                         case 6:
                             if (buttons[selectedButton].Value == 1) { Settings.SubmitSettings(); }
-                            Unload();
-                            SetMenuActive(previousMenu);
+                            ReturnToPreviousMenu();
                             break;
                         default: break;
                     }
                     break;
             }
+        }
+
+        public void ReturnToPreviousMenu()
+        {
+            Unload();
+            SetMenuActive(previousMenu);
         }
 
         private void LoadGame()
@@ -263,24 +281,24 @@ namespace Fractured.UI
             type = selectable ? ButtonType.SelectableValue : ButtonType.ObjectValue;
         }
 
-        public void Draw(SpriteBatch _spriteBatch, bool isSelected)
+        public void Draw(SpriteBatch _spriteBatch, bool isSelected, float spriteOpacity)
         {
             switch (type)
             {
                 case ButtonType.SingleValue:
-                    if (isSelected) { _spriteBatch.Draw(selected.BaseSpriteSheet, selected.ScreenPosition, selected.SpriteLocation, Color.White); }
-                    else { _spriteBatch.Draw(unselected.BaseSpriteSheet, unselected.ScreenPosition, unselected.SpriteLocation, Color.White); }
+                    if (isSelected) { _spriteBatch.Draw(selected.BaseSpriteSheet, selected.ScreenPosition, selected.SpriteLocation, Color.White * spriteOpacity); }
+                    else { _spriteBatch.Draw(unselected.BaseSpriteSheet, unselected.ScreenPosition, unselected.SpriteLocation, Color.White * spriteOpacity); }
                     break;
                 case ButtonType.NumberValue:
-                    _spriteBatch.Draw(selected.BaseSpriteSheet, selected.ScreenPosition, selected.SpriteLocation, Color.White);
-                    if (currentValue > 0) { for (int v = 0; v < currentValue; v++) { _spriteBatch.Draw(value.BaseSpriteSheet, new Vector2(value.ScreenPosition.X + (v * valueOffset), value.ScreenPosition.Y), value.SpriteLocation, Color.White); } }
+                    _spriteBatch.Draw(selected.BaseSpriteSheet, selected.ScreenPosition, selected.SpriteLocation, Color.White * spriteOpacity);
+                    if (currentValue > 0) { for (int v = 0; v < currentValue; v++) { _spriteBatch.Draw(value.BaseSpriteSheet, new Vector2(value.ScreenPosition.X + (v * valueOffset), value.ScreenPosition.Y), value.SpriteLocation, Color.White * spriteOpacity); } }
                     break;
                 case ButtonType.ObjectValue:
-                    _spriteBatch.Draw(valueList[currentValue].BaseSpriteSheet, valueList[currentValue].ScreenPosition, valueList[currentValue].SpriteLocation, Color.White);
+                    _spriteBatch.Draw(valueList[currentValue].BaseSpriteSheet, valueList[currentValue].ScreenPosition, valueList[currentValue].SpriteLocation, Color.White * spriteOpacity);
                     break;
                 case ButtonType.SelectableValue:
-                    if (isSelected) { _spriteBatch.Draw(valueList[currentValue].BaseSpriteSheet, valueList[currentValue].ScreenPosition, valueList[currentValue].SpriteLocation, Color.White); }
-                    else { _spriteBatch.Draw(valueList[0].BaseSpriteSheet, valueList[0].ScreenPosition, valueList[0].SpriteLocation, Color.White); }
+                    if (isSelected) { _spriteBatch.Draw(valueList[currentValue].BaseSpriteSheet, valueList[currentValue].ScreenPosition, valueList[currentValue].SpriteLocation, Color.White * spriteOpacity); }
+                    else { _spriteBatch.Draw(valueList[0].BaseSpriteSheet, valueList[0].ScreenPosition, valueList[0].SpriteLocation, Color.White * spriteOpacity); }
                     break;
             }
         }
