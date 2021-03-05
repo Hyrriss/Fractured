@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Fractured.World;
 
 namespace Fractured
 {
@@ -28,4 +29,14 @@ namespace Fractured
         public Vector2 ScreenPosition;
     }
 
+    public struct TextEffects
+    {
+        public string text;
+        public Character characterTalking;
+        public Character portraitCharacter;
+        public int portraitID;
+        public int soundEffect;
+        public int renderedImage;
+        public Location Destination;
+    }
 }

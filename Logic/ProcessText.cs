@@ -18,17 +18,6 @@ namespace Fractured.Logic
         private int _cgiID;
         private int _locID;
 
-        public struct TextEffects
-        {
-            public string text;
-            public Character characterTalking;
-            public Character portraitCharacter;
-            public int portraitID;
-            public int soundEffect;
-            public int renderedImage;
-            public Location Destination;
-        }
-
         public ProcessText(string filePath)
         {
             _portraitID = 0;
