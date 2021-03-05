@@ -16,5 +16,6 @@ namespace Fractured.Config
     public static class SaveFile
     {
         public static StoryMarker currentMarker;
+        public static Location currentLocation;
     }
 }
