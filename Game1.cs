@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,15 +12,19 @@ namespace Fractured
         private SpriteBatch _spriteBatch;
         private readonly UI.Menu _menu;
         private readonly UI.Interface _interface;
+        private readonly UI.Main _main;
         private Keys[] heldKeys;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            _menu = new UI.Menu(this, Content);
 
-            IsMouseVisible = true;
+            _menu = new UI.Menu(this, Content);
+            _interface = new UI.Interface(Content);
+
+            TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
+            IsMouseVisible = false;
         }
 
         //First thing called when the game is instantiated
@@ -46,7 +51,7 @@ namespace Fractured
         //Called every frame
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Pause))
                 Exit();
                         
             if (_menu.IsMenuActive)
@@ -57,6 +62,18 @@ namespace Fractured
                 else if (IsKeyPressed(Config.Controls.MoveLeft)) { _menu.ChangeValue(-1); }
 
                 if (IsKeyPressed(Config.Controls.Submit)) { _menu.Submit(); }
+                if (IsKeyPressed(Config.Controls.Exit))
+                    switch (_menu.CurrentType)
+                    {
+                        case MenuType.Pause:
+                            _menu.Unload();
+                            break;
+                        case MenuType.Settings:
+                            _menu.ReturnToPreviousMenu();
+                            break;
+                        default:
+                            break;
+                    }
             }
 
             /*This method must be the last one before base.Update*/ UpdateHeldKeys();
@@ -66,10 +83,11 @@ namespace Fractured
         //Called at the end of every frame - handles all graphical updates
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            _interface.Draw(_spriteBatch);
             _menu.Draw(_spriteBatch);
             _spriteBatch.End();
 
@@ -81,7 +99,7 @@ namespace Fractured
         /// </summary>
         /// <param name="keys">The key to check if it has just been pressed</param>
         /// <returns></returns>
-        public bool IsKeyPressed(Keys keys)
+        private bool IsKeyPressed(Keys keys)
         {
             if (Keyboard.GetState().IsKeyDown(keys))
             {
@@ -98,5 +116,8 @@ namespace Fractured
         {
             heldKeys = Keyboard.GetState().GetPressedKeys();
         }
+
+        public void ActivateMenu(MenuType menuType) { _menu.SetMenuActive(menuType); }
+        public void ActivateInterface(World.StoryMarker storyMarker) { _interface.SetActive(storyMarker); }
     }
 }
