@@ -7,15 +7,15 @@ namespace Fractured.World
     public class Gift
     {
         public int ID { get { return id; } }
-        private int id;
+        private readonly int id;
         public string Name { get { return name; } }
-        private string name;
+        private readonly string name;
         public bool IsRollable { get { return isRollable; } }
-        private bool isRollable;
+        private readonly bool isRollable;
         private readonly Dictionary<int, GiftReaction> characterReactions;
         public string Description { get { return descript; } }
-        private string descript;
-        private bool giftable;
+        private readonly string descript;
+        private readonly bool giftable;
 
         /// <summary>
         /// Creates a new gift witout any reactions
