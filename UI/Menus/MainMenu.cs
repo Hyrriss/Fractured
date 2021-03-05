@@ -51,7 +51,8 @@ namespace Fractured.UI.Menus
 
         public static void NewGame()
         {
-            Debug.Print("New Game");
+            Config.SaveFile.currentMarker = Global.GetMarkerFromID(0);
+            Config.SaveFile.currentLocation = Global.GetLocFromID(Global.Loc_ID_Null);
         }
     }
 }
