@@ -25,7 +25,7 @@ namespace Fractured.World
         private readonly Item[] requiredItem;
         private readonly List<Item> itemsLooked = new List<Item>();
 
-        public StoryMarker(int markerID, int currentChapter, Time timeOfDay, Mode storyMode, string cantTravelText, Location startLocation, Location[] availableLocations, Location[] requiredLocations, Character[] requiredCharacters, Item[] requiredInspection)
+        public StoryMarker(int markerID, int currentChapter, Time timeOfDay, Mode storyMode, string cantTravelText, Location startLocation, Location[] availableLocations = null, Location[] requiredLocations = null, Character[] requiredCharacters = null, Item[] requiredInspection = null)
         {
             id = markerID;
             chapter = currentChapter;
