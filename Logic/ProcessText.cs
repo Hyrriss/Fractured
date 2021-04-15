@@ -8,7 +8,7 @@ namespace Fractured.Logic
     public class ProcessText
     {
         private readonly string[] FLines;
-        private readonly List<TextEffects> Effects;
+        private readonly List<Script> Effects;
         private int PrimaryMarkdownEffect;
         private int SecondaryMarkdownEffect;
         private int _portraitID;
@@ -26,7 +26,7 @@ namespace Fractured.Logic
             _portCharID = 0;
             _cgiID = 0;
             _locID = 0;
-            Effects = new List<TextEffects>();
+            Effects = new List<Script>();
             FLines = LoadTextAsset(filePath);
             foreach (string f in FLines)
             {
@@ -55,43 +55,38 @@ namespace Fractured.Logic
                 int.TryParse($"{f[i + 1]}{f[i + 2]}", out PrimaryMarkdownEffect);
                 int.TryParse($"{f[i + 3]}{f[i + 4]}", out SecondaryMarkdownEffect);
 
-                if (f[i] == 'c')
+                switch (f[i])
                 {
-                    _talkCharID = PrimaryMarkdownEffect;
-                    i += 2;
-                    continue;
-                }
-                else if (f[i] == 'p')
-                {
-                    _talkCharID = _portCharID = PrimaryMarkdownEffect;
-                    _portraitID = SecondaryMarkdownEffect;
-                    i += 4;
-                    continue;
-                }
-                else if (f[i] == 'g')
-                {
-                    _cgiID = PrimaryMarkdownEffect;
-                    i += 2;
-                    continue;
-                }
-                else if (f[i] == 'f')
-                {
-                    _sfxID = PrimaryMarkdownEffect;
-                    i += 2;
-                    continue;
-                }
-                else if (f[i] == 'l')
-                {
-                    _locID = PrimaryMarkdownEffect;
-                    i += 2;
-                    continue;
+                    case 'c':
+                        _talkCharID = PrimaryMarkdownEffect;
+                        i += 2;
+                        break;
+                    case 'p':
+                        _talkCharID = _portCharID = PrimaryMarkdownEffect;
+                        _portraitID = SecondaryMarkdownEffect;
+                        i += 4;
+                        break;
+                    case 'g':
+                        _cgiID = PrimaryMarkdownEffect;
+                        i += 2;
+                        break;
+                    case 'f':
+                        _sfxID = PrimaryMarkdownEffect;
+                        i += 2;
+                        break;
+                    case 'l':
+                        _locID = PrimaryMarkdownEffect;
+                        i += 2;
+                        break;
+                    default:
+                        break;
                 }
             }
         }
 
-        private TextEffects SetValues(string text, int charID, int portCharID, int portID, int sfxID, int cgiID, int locID)
+        private Script SetValues(string text, int charID, int portCharID, int portID, int sfxID, int cgiID, int locID)
         {
-            return new TextEffects
+            return new Script
             {
                 text = text,
                 characterTalking = Global.GetCharFromID(charID),

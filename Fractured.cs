@@ -29,7 +29,7 @@ namespace Fractured
         public Vector2 ScreenPosition;
     }
 
-    public struct TextEffects
+    public struct Script
     {
         public string text;
         public Character characterTalking;
