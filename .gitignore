@@ -341,3 +341,5 @@ healthchecksdb
 /Content
 /Icon.bmp
 /Icon.ico
+/World/Events/Characters/Events_Daichi.cs
+/World/Events/Locations/Events_Entrance.cs
