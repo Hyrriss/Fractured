@@ -1,27 +1,37 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Fractured.Menus;
 
 namespace Fractured
 {
     public class Game1 : Game
     {
-        private readonly GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private readonly UI.Menu _menu;
-        private readonly UI.Interface _interface;
-        private readonly UI.Main _main;
+        public static GraphicsDeviceManager Graphics;
+        public static SpriteBatch SpriteBatch;
+        public static new ContentManager Content;
+
+        public static IContextMenu currentActiveMenu;
+        public static IContextMenu previousActiveMenu;
+
+        public static Color backgroundColor;
+
         private Keys[] heldKeys;
+        private List<Keys> pressedKeys = new List<Keys>();
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
+            Graphics.PreparingDeviceSettings += delegate (object sender, PreparingDeviceSettingsEventArgs args)
+            {
+                args.GraphicsDeviceInformation.PresentationParameters.RenderTargetUsage = RenderTargetUsage.PreserveContents;
+            };
+            Content = base.Content;
             Content.RootDirectory = "Content";
-
-            _menu = new UI.Menu(this, Content);
-            _interface = new UI.Interface(Content);
 
             TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d);
             IsMouseVisible = false;
@@ -31,10 +41,10 @@ namespace Fractured
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            Graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            Graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             Window.IsBorderless = true;
-            _graphics.ApplyChanges();
+            Graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -42,70 +52,65 @@ namespace Fractured
         //Called once after the game is initialized
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _menu.SetMenuActive(MenuType.MainMenu);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            currentActiveMenu = new TitleMenu();
         }
 
         //Called every frame
         protected override void Update(GameTime gameTime)
         {
+            //This method must be the first one called in Update
+            UpdatePressedKeys();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Pause))
                 Exit();
-                        
-            if (_menu.IsMenuActive)
-            {
-                if (IsKeyPressed(Config.Controls.MoveDown)) { _menu.ChangeButton(1); }
-                else if (IsKeyPressed(Config.Controls.MoveUp)) { _menu.ChangeButton(-1); }
-                else if (IsKeyPressed(Config.Controls.MoveRight)) { _menu.ChangeValue(1); }
-                else if (IsKeyPressed(Config.Controls.MoveLeft)) { _menu.ChangeValue(-1); }
 
-                if (IsKeyPressed(Config.Controls.Submit)) { _menu.Submit(); }
-                if (IsKeyPressed(Config.Controls.Exit))
-                    switch (_menu.CurrentType)
-                    {
-                        case MenuType.Pause:
-                            _menu.Unload();
-                            break;
-                        case MenuType.Settings:
-                            _menu.ReturnToPreviousMenu();
-                            break;
-                        default:
-                            break;
-                    }
+            if (currentActiveMenu != null)
+            {
+                currentActiveMenu.MouseHover(Mouse.GetState().X, Mouse.GetState().Y);
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    currentActiveMenu.LeftMouseClick(Mouse.GetState().X, Mouse.GetState().Y);
+                foreach (Keys k in pressedKeys)
+                    currentActiveMenu.KeyboardInput(k);
             }
 
-            /*This method must be the last one before base.Update*/ UpdateHeldKeys();
+            //This method must be the last one before base.Update
+            UpdateHeldKeys();
             base.Update(gameTime);
         }
 
-        //Called at the end of every frame - handles all graphical updates
+        /// <summary>
+        /// Called at the end of every frame - handles all graphical updates
+        /// </summary>
+        /// <param name="gameTime">Time since game started</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(backgroundColor);
 
             // TODO: Add your drawing code here
-            _spriteBatch.Begin();
-            _interface.Draw(_spriteBatch);
-            _menu.Draw(_spriteBatch);
-            _spriteBatch.End();
+            SpriteBatch.Begin();
+
+            if (currentActiveMenu != null)
+                currentActiveMenu.Draw(SpriteBatch);
+
+            SpriteBatch.End();
 
             base.Draw(gameTime);
         }
 
         /// <summary>
-        /// Returns true if the key was pressed this frame
+        /// Checks if key was pressed this frame
         /// </summary>
         /// <param name="keys">The key to check if it has just been pressed</param>
-        /// <returns></returns>
+        /// <returns>True if the key was pressed this frame</returns>
         private bool IsKeyPressed(Keys keys)
         {
             if (Keyboard.GetState().IsKeyDown(keys))
             {
                 if (heldKeys == null) { return true; }
                 foreach (Keys k in heldKeys)
-                    /*Returns false if key has been held down for more than 1 frame*/ if (k == keys) { return false; }
+                    //Returns false if key has been held down for more than 1 frame
+                    if (k == keys) { return false; }
                 return true;
             }
             //Returns false if the key isn't held down
@@ -117,7 +122,18 @@ namespace Fractured
             heldKeys = Keyboard.GetState().GetPressedKeys();
         }
 
-        public void ActivateMenu(MenuType menuType) { _menu.SetMenuActive(menuType); }
-        public void ActivateInterface(World.StoryMarker storyMarker) { _interface.SetActive(storyMarker); }
+        private void UpdatePressedKeys()
+        {
+            pressedKeys.Clear();
+            foreach (Keys k in Keyboard.GetState().GetPressedKeys())
+                if (IsKeyPressed(k)) pressedKeys.Add(k);
+        }
+
+        public static void StartNewGame()
+        {
+            currentActiveMenu.Exit();
+            backgroundColor = Color.Black;
+            return;
+        }
     }
 }

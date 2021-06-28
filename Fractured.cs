@@ -6,7 +6,7 @@ namespace Fractured
 {
     public enum MenuType
     {
-        MainMenu,
+        TitleMenu,
         Settings,
         Pause
     }
